@@ -20,12 +20,12 @@ public class ExcelService {
 
 	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
-	
+
 	public ExcelService() {
 		this.workbook = new XSSFWorkbook();
 	}
-	
-	private void writeHeader(String sheetName, List<Map<Integer, String>> listData) {
+
+	private void writeHeader(String sheetName, List<String> headers) {
 		sheet = workbook.createSheet(sheetName);
 		Row row = sheet.createRow(0);
 		CellStyle style = workbook.createCellStyle();
@@ -34,10 +34,8 @@ public class ExcelService {
 		font.setFontHeight(15);
 		style.setFont(font);
 
-		for (Map<Integer, String> map : listData) {
-			for (Integer key : map.keySet()) {
-				createCell(row, key, map.get(key), style);
-			}
+		for (int i = 0; i < headers.size(); i++) {
+			createCell(row, i, headers.get(i), style);
 		}
 	}
 
@@ -64,16 +62,16 @@ public class ExcelService {
 		style.setFont(font);
 
 		for (Map<Integer, String> map : listData) {
+			Row row = sheet.createRow(rowCount++);
+			int columnCount = 0;
 			for (Integer key : map.keySet()) {
-				Row row = sheet.createRow(rowCount++);
-				int columnCount = 0;
 				createCell(row, columnCount++, map.get(key), style);
 			}
 		}
 	}
 
-	public void generate(HttpServletResponse response, String sheetName, List<Map<Integer, String>> listData) throws IOException {
-		writeHeader(sheetName, listData);
+	public void generate(HttpServletResponse response, String sheetName, List<Map<Integer, String>> listData, List<String> headers) throws IOException {
+		writeHeader(sheetName, headers);
 		write(listData);
 		ServletOutputStream outputStream = response.getOutputStream();
 		workbook.write(outputStream);

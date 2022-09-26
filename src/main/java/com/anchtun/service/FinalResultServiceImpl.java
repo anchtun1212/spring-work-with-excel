@@ -30,8 +30,8 @@ public class FinalResultServiceImpl implements FinalResultService {
 		try {
 			List<FinalResultEntity> listFinalResult = finalResultRepository.findAll();
 			ExcelService generator = new ExcelService();
-			List<Map<Integer, String>> columns = FinalResultHelper.fillFinalResulMap(listFinalResult);
-			generator.generate(response, Constants.FINAL_RESULT_ALL_NAME, columns);
+			List<Map<Integer, String>> fullData = FinalResultHelper.fillFinalResulMap(listFinalResult);
+			generator.generate(response, Constants.FINAL_RESULT_ALL_NAME, fullData, Constants.FINAL_RESULT_HEADERS);
 		} catch (IOException e) {
 			log.error("Error Occured when generating EXCEL!!!");
 		}
