@@ -9,4 +9,28 @@
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd">
 
+	<changeSet id="spring-excel-1" author="anchtun1212">
+		<sql>
+			create table final_result (
+			id serial4 not null,
+			exam varchar(255) not null,
+			student_full_name varchar(255) not null,
+			note double precision not null,
+			constraint pk_final_result_id primary key(id)
+			);
+		</sql>
+		<rollback>
+			drop table final_result;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-excel-2" author="anchtun1212">
+		<sql>
+			insert into final_result (exam,student_full_name,note) values ('JAVA','MOHAMED AYMEN CHARRADA',20);
+			insert into final_result (exam,student_full_name,note) values ('JAVA','ALI BEN SALAH',15);
+			insert into final_result (exam,student_full_name,note) values ('JAVA','FIRAS LANDOLSI',12);
+			insert into final_result (exam,student_full_name,note) values ('JAVA','ANIS BOUGUERRA',18);
+			insert into final_result (exam,student_full_name,note) values ('JAVA','HASSAN TOUNSI',19);
+		</sql>
+	</changeSet>
+	
 </databaseChangeLog>
