@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "final_result")
-public class FinalResult {
+public class FinalResultEntity {
 	
 	@Id
 	private String id;
